@@ -1,27 +1,20 @@
-<!DOCTYPE HTML>
-
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html;utf-8">
-<title>bead generator 2001</title>
-<link href="main.css" type="text/css" rel="StyleSheet">
-</head>
+<?php require_once("header.php"); ?>
 <body>
   <header>
 	<h1>Bead STL List</h1>
   </header>
   <article>
-	<a href="index.php">home</a>
+	<h2><a href="index.php">STL Generator</a></h2>
 	<?php
 		$files = scandir("./out");
 		if(count($files) >= 2) {
-			echo "<ul>";
+			echo "<ul>".PHP_EOL;
 			foreach($files as $file) {
 				if($file !== "." && $file !== "..") {
-					echo "<li><a href='out/".$file."'>".$file."</a></li>";
+					echo "<li><a href='out/".$file."'>".$file."</a></li>".PHP_EOL;
 				}
 			}
-			echo "</ul>";
+			echo "</ul>".PHP_EOL;
 		} 
 	?>
   </article>
