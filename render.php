@@ -1,3 +1,6 @@
+<!DOCTYPE HTML>
+<html>
+<head>
 <?php
 function rootURL() {
     $pgurl = "http";
@@ -13,7 +16,8 @@ function rootURL() {
 function render() {
 	//check scad file exists
 	if(!is_file(getcwd()."/scads/".$_GET['scad'])) {
-		header("Location: ".rootURL()."/beads/?feedback=yes&error=Error: ".$_GET['scad']." does not exist");
+		//header("Location: ".rootURL()."/beads/?feedback=yes&error=Error: ".$_GET['scad']." does not exist");
+		echo "<meta http-equiv=\"refresh\" content=\"2;url=".rootURL()."/beads/?feedback=yes&error=Error: ".$_GET['scad']." does not exist"."\">";
 		return false;
 	}
 	
@@ -43,9 +47,15 @@ function render() {
 	}
 
 	//feedback.
-	header("Location: ".rootURL()."/beads/?feedback=yes&file=".$fname);
+	//header("Location: ".rootURL()."/beads/?feedback=yes&file=".$fname);
+	echo "<meta http-equiv=\"refresh\" content=\"2;url=".rootURL()."/beads/?feedback=yes&file=".$fname."\">";
 }
 render();
 
 ?>
-<p>eof</p>
+<head>
+<body>
+	<p>Process completed, redirection in progress.</p>
+</body>
+</html>
+
