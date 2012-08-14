@@ -23,7 +23,7 @@ function render() {
 		if(!is_dir($conf['stldir'])) mkdir($conf['stldir']);
 		//if(!is_dir($conf['scaddir'])) mkdir($conf['scaddir']);
 		if(!is_dir($conf['scaddir'])) {
-			echo "<meta http-equiv=\"refresh\" content=\"2;url=".rootURL()."/beads/?feedback=yes&error=Error: Scad directory ".$conf['scaddir']." does not exist.\">";
+			echo "<meta http-equiv=\"refresh\" content=\"1;url=".rootURL()."/beads/?feedback=yes&error=Error: Scad directory ".$conf['scaddir']." does not exist.\">";
 			return false;
 		}
 	}
@@ -36,7 +36,7 @@ function render() {
 	//check scad file exists
 	if(!is_file(getcwd()."/scads/".$_GET['scad'])) {
 		//header("Location: ".rootURL()."/beads/?feedback=yes&error=Error: ".$_GET['scad']." does not exist");
-		echo "<meta http-equiv=\"refresh\" content=\"2;url=".rootURL()."/beads/?feedback=yes&error=Error: ".$_GET['scad']." does not exist"."\">";
+		echo "<meta http-equiv=\"refresh\" content=\"1;url=".rootURL()."/beads/?feedback=yes&error=Error: ".$_GET['scad']." does not exist"."\">";
 		return false;
 	}
 	
@@ -67,7 +67,7 @@ function render() {
 
 	//feedback.
 	//header("Location: ".rootURL()."/beads/?feedback=yes&file=".$fname);
-	echo "<meta http-equiv=\"refresh\" content=\"2;url=".rootURL()."/beads/?feedback=yes&file=".$fname."\">";
+	echo "<meta http-equiv=\"refresh\" content=\"1;url=".rootURL()."/beads/?feedback=yes&file=".$fname."\">";
 }
 render();
 
