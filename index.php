@@ -20,7 +20,23 @@
 		foreach($scads as $obj) {
 			if(substr($obj,-4) == "scad") {
 				$tmp = substr($obj,0,-5);
-				echo "<p><input type='radio' name='scad' value='".$obj."' checked='true'>".$tmp."</p>";
+				echo "<p><input type='radio' name='scad' value='".$obj."' checked='true'>";
+
+				//check if jpg or png exists
+				if(is_file($conf['scaddir']."/".$tmp.".png")) {
+					?>
+					<img src="<?php echo $conf['scaddir'].'/'.$tmp.".png"; ?>" alt="<?php echo $obj; ?>">
+					<?php
+
+				}
+				else if(is_file($conf['scaddir']."/".$tmp.".jpg")) {
+					?>
+					<img src="<?php echo $conf['scaddir'].'/'.$tmp.".jpg"; ?>" alt="<?php echo $obj; ?>">
+					<?php
+				}
+				else echo $tmp;
+
+				echo "</p>";
 			}
 		}
 		?>
