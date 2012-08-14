@@ -1,20 +1,9 @@
 size = 9;
 holesize=1.1;
 //eoc
-if(size < 1) {
-echo("'size' not set or too small");
-}
-
-if(holesize < 0.2) {
-echo("'holesize' not set or too small");
-}
-
-if(holesize > size) {
-echo("Logic error: holesize larger than size");
-}
 
 include <lib/shapes.scad>;
-$fn=50;
+$fn=5;
 
 module bead() {
 //detail level
