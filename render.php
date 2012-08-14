@@ -8,48 +8,44 @@ function rootURL() {
 	//($pgurl .= $_SERVER["SCRIPT_NAME"]);
 }
 
-/*/ check if values are correct
-$stop = false;
+//check scad file 
 
-if(empty($_GET['size'])) {
-	$stop = true;
-	$error = "Error: Size not set.";
-}
-
-if(empty($_GET['holesize'])) {
-	if($stop) $error .= "<br>";
-	$stop = true;
-	$error .= "Error: Hole size not specified.";
-}
-if(($_GET['holesize'] >= $_GET['size'])) {
-	if($stop);
-	else {
-		$stop = true;
-		$error .= "Error: Hole size larger or same size as bead.";
+function render() {
+	//check scad file exists
+	if(!is_file(getcwd()."/scads/".$_GET['scad'])) {
+		header("Location: ".rootURL()."/beads/?feedback=yes&error=Error: ".$_GET['scad']." does not exist");
+		return false;
 	}
+	
+	//filename (substr strips .scad)
+	$fname = substr($_GET['scad'],0,-5);
+	//command
+	$cmd = "/usr/bin/openscad";
+
+	foreach($_GET as $key => $value) {
+		if($key != "scad") {
+			//generate part of the command to execute
+			$cmd .= " -D ".$key.'='.$value;
+			//generate part of the file name to save to
+			$fname .= '-'.$key.'_'.$value."mm";
+		}
+	}
+	//add extension to filename
+	$fname .= ".stl";
+	//add input & output file to $cmd
+	$cmd .= " -o ".$fname." ./scads/".$_GET['scad'];
+
+	// check if file exists, if it exists don't re-render 
+	if(!is_file(getcwd()."/out/".$fname)) {
+		// do render
+		exec($cmd);
+		rename(getcwd()."/".$fname, getcwd()."/out/".$fname);
+	}
+
+	//feedback.
+	header("Location: ".rootURL()."/beads/?feedback=yes&file=".$fname);
 }
-
-// varaibles not set or incorrect
-if($stop) {
-	//go home
-	header("Location: ".rootURL()."/beads/?feedback=yes&error=".urlencode($error));
-	echo $error;
-	return;
-}*/
-
-
-// file name 
-$fname = $_GET['size']."mm_".substr($_GET['scad'], 0, -5)."-".$_GET['holesize']."mm_holesize.stl";
-
-// check if file exists, if it exists don't re-render 
-if(!is_file(getcwd()."/out/".$fname)) {
-	// do render
-	exec("/usr/bin/openscad -D size=".$_GET['size']." -D holesize=".$_GET['holesize']." -o ".$fname." ./scads/".$_GET['scad']);
-	rename(getcwd()."/".$fname, getcwd()."/out/".$fname);
-}
-
-//feedback.
-//header("Location: ".rootURL()."/beads/?feedback=yes&file=".$fname);
+render();
 
 ?>
 <p>eof</p>

@@ -1,6 +1,7 @@
 size = 9;
 holesize = 1.1;
 //eoc
+
 module bead() {
 	
 	color([0.3,0,0.6]) 
