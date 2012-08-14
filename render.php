@@ -59,7 +59,7 @@ function render() {
 	$cmd .= " -o ".$fname." ./scads/".$_GET['scad'];
 
 	// check if file exists, if it exists don't re-render 
-	if(!is_file($conf['stldir'].$fname)) {
+	if(!is_file($conf['stldir']."/".$fname)) {
 		// do render
 		exec($cmd);
 		rename(getcwd()."/".$fname, $conf['stldir']."/".$fname);
